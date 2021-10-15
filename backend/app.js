@@ -5,10 +5,10 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const errorMiddleware = require("./middleware/error");
 
-// // Config
-// if (process.env.NODE_ENV !== "PRODUCTION") {
-//   require("dotenv").config();
-// }
+// Config
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  require("dotenv").config();
+}
 
 app.use(express.json());
 app.use(cookieParser());
