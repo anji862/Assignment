@@ -4,7 +4,8 @@ import React, { Fragment, useState, useEffect } from "react";
 // import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./Actions/userActions";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { useAlert } from "react-alert";
 
 
     
@@ -14,8 +15,9 @@ const Login = () => {
   
   const history = useHistory();
   const dispatch = useDispatch();
+  const alert = useAlert();
 
-  const {isAuthenticated } = useSelector(
+  const {error,isAuthenticated} = useSelector(
     (state) => state.user
     );
     
@@ -26,11 +28,16 @@ const Login = () => {
 
 
   useEffect(() => {
-      if (isAuthenticated) {
-          console.log("hey u are authenticated");
-          history.push("/details");
+    if (error) {
+      alert.error(error);
     }
-  }, [isAuthenticated]);
+
+    
+    if (isAuthenticated) {
+      console.log("hey u are authenticated");
+      history.push("/details");
+    }
+  }, [isAuthenticated,error,alert]);
     
   const loginSubmit = (e) => {
     e.preventDefault();

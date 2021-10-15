@@ -19,13 +19,13 @@ exports.LoginUser = catchAsyncErrors(async (req, res, next) => {
 
   if (!user) {
     console.log("wrong user");
-    return next(new ErrorHander("Invalid email or password", 401));
+    return next(new ErrorHander("Not exists email or password", 401));
   }
 
   
-  const isPasswordMatched = await user.comparePassword(password);
+  // const isPasswordMatched = await user.comparePassword(password);
 
-  if (!isPasswordMatched) {
+  if (user.password!=password) {
     return next(new ErrorHander("Invalid email or password", 401));
   }
   sendToken(user, 200, res);
@@ -36,7 +36,6 @@ exports.createUser = catchAsyncErrors(async (req, res, next) => {
 
  const {name, email,mobile,address} = req.body;
 
-  console.log("hello")
 console.log(req.body)
 const user = await UserInfo.create({
     name,
@@ -54,11 +53,12 @@ const user = await UserInfo.create({
 
 // Get All Users
 exports.getUsers = catchAsyncErrors(async (req, res, next) => {
-  const products = await UserInfo.find();
+  const users = await UserInfo.find();
 
   res.status(200).json({
     success: true,
-    products,
+    message:"User Created !!!!",
+    users,
   });
 });
 

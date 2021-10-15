@@ -29,6 +29,7 @@ export const userReducer = (state = { user: {} }, action) => {
         loading: false,
         isAuthenticated: true,
         user: action.payload,
+        message: action.payload.message,
       };
     case LOGIN_FAIL:
     case CREATE_USER_FAIL:

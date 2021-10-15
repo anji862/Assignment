@@ -8,6 +8,7 @@ const userInfoSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please Enter your userName"],
         unique: true,
+        validate: [validator.isAlphanumeric, "not an alphaNumeric"],
     },
 
     email: {

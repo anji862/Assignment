@@ -52,11 +52,10 @@ export const createUser = (userData) => async (dispatch) => {
 
 export const getAllUsers = () => async (dispatch) => {
   try {
-    console.log("bccccccccccc");
     dispatch({ type: ALL_USERS_REQUEST });
     const { data } = await axios.get(`/api/v1/allusers`);
 
-    dispatch({ type: ALL_USERS_SUCCESS, payload: data });
+    dispatch({ type: ALL_USERS_SUCCESS, payload: data.users });
   } catch (error) {
     dispatch({ type: ALL_USERS_FAIL, payload: error.response.data.message });
   }
@@ -71,7 +70,8 @@ export const deleteUser = (id) => async (dispatch) => {
     const { data } = await axios.delete(`/api/v1/allusers/${id}`);
 
     dispatch({ type: DELETE_USER_SUCCESS, payload: data });
-  } catch (error) {
+  } 
+  catch (error) {
     dispatch({
       type: DELETE_USER_FAIL,
       payload: error.response.data.message,
